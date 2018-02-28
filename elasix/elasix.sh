@@ -85,7 +85,7 @@ discovery() {
     elif [[ ${resource} == 'indices' ]]; then
         IFS="," indices=`jq -r '.indices|keys|@csv' ${json}`
         for item in ${indices[@]}; do
-            echo ${item}
+            echo "${item}" | awk '{print substr($0, 2, length($0) - 2)}'
         done
     fi
 }
