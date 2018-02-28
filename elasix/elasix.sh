@@ -118,7 +118,7 @@ while getopts "s::a:s:uphvj:" OPTION; do
 	    ;;
         j)
             JSON=1
-            IFS=":" JSON_ATTR=(${OPTARG})
+            IFS=":" JSON_ATTR=(${OPTARG//p=})
             ;;
 	a)
 	    ARGS[${#ARGS[*]}]=${OPTARG//p=}
