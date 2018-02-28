@@ -1,1 +1,2 @@
 ELASTIC_URL="http://localhost:9200"
+CACHE_TTL=1
