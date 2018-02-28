@@ -2,9 +2,9 @@
 SOURCE_DIR=$(dirname $0)
 ZABBIX_DIR=/etc/zabbix
 
-ELASTIC_SERVER=${1:localhost}
-ELASTIC_PORT=${2:9022}
-ELASTIC_METHOD=${3:http}
+ELASTIC_SERVER=${1:-localhost}
+ELASTIC_PORT=${2:-9022}
+ELASTIC_METHOD=${3:-http}
 ELASTIC_URL="${ELASTIC_METHOD}://${ELASTIC_SERVER}:${ELASTIC_PORT}"
 
 mkdir -p ${ZABBIX_DIR}/scripts/agentd/elasix
