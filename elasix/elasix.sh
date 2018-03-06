@@ -132,43 +132,38 @@ while getopts "s::a:s:uphvj:" OPTION; do
     esac
 done
 
-#if [[ -f "${SCRIPT%.sh}.sh" ]]; then
-    if [[ ${JSON} -eq 1 ]]; then
-       rval=$(discovery ${ARGS[*]})
-       echo '{'
-       echo '   "data":['
-       count=1
-       while read line; do
-          IFS="|" values=(${line})
-          output='{ '
-          for val_index in ${!values[*]}; do
-             output+='"'{#${JSON_ATTR[${val_index}]:-${val_index}}}'":"'${values[${val_index}]}'"'
-             if (( ${val_index}+1 < ${#values[*]} )); then
+if [[ ${JSON} -eq 1 ]]; then
+    rval=$(discovery ${ARGS[*]})
+    echo '{'
+    echo '   "data":['
+    count=1
+    while read line; do
+        IFS="|" values=(${line})
+        output='{ '
+        for val_index in ${!values[*]}; do
+            output+='"'{#${JSON_ATTR[${val_index}]:-${val_index}}}'":"'${values[${val_index}]}'"'
+            if (( ${val_index}+1 < ${#values[*]} )); then
                 output="${output}, "
-             fi
-          done 
-          output+=' }'
-          if (( ${count} < `echo ${rval}|wc -l` )); then
-             output="${output},"
-          fi
-          echo "      ${output}"
-          let "count=count+1"
-       done <<< ${rval}
-       echo '   ]'
-       echo '}'
-    else
-	if [[ ${SECTION} == 'stat' ]]; then
-	   rval=$( get_stat ${ARGS[*]} )
-	   rcode="${?}"
-        elif [[ ${SECTION} == 'discovery' ]]; then
-           rval=$(discovery ${ARGS[*]})
-           rcode="${?}"
+            fi
+        done 
+        output+=' }'
+        if (( ${count} < `echo ${rval}|wc -l` )); then
+            output="${output},"
         fi
-	echo ${rval:-0}
+        echo "      ${output}"
+        let "count=count+1"
+    done <<< ${rval}
+    echo '   ]'
+    echo '}'
+else
+    if [[ ${SECTION} == 'stat' ]]; then
+	rval=$( get_stat ${ARGS[*]} )
+	rcode="${?}"
+    elif [[ ${SECTION} == 'discovery' ]]; then
+        rval=$(discovery ${ARGS[*]})
+        rcode="${?}"
     fi
-#else
-#    echo "ZBX_NOTSUPPORTED"
-#    rcode="1"
-#fi
+    echo ${rval:-0} | sed "s/null/0/g"
+fi
 
 exit ${rcode}
