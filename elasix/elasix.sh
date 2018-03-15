@@ -76,14 +76,14 @@ discovery() {
     resource=${1}
     json=$(refresh_cache ${resource})
     if [[ ${resource} == 'nodes' ]]; then
-        IFS="," nodes=`jq -r '.nodes|keys|@csv' ${json}`
+        IFS="," nodes=`jq -r '.nodes|keys|@csv' ${json} 2>/dev/null`
  	for item in ${nodes[@]}; do 
 	    nodeuuid=`echo "${item}" | awk '{print substr($0, 2, length($0) - 2)}'`
-            nodename=`jq -r ".nodes.\"${nodeuuid}\".name" ${json}`
+            nodename=`jq -r ".nodes.\"${nodeuuid}\".name" ${json} 2>/dev/null`
             echo "${nodeuuid}|${nodename}"
         done
     elif [[ ${resource} == 'indices' ]]; then
-        IFS="," indices=`jq -r '.indices|keys|@csv' ${json}`
+        IFS="," indices=`jq -r '.indices|keys|@csv' ${json} 2>/dev/null`
         for item in ${indices[@]}; do
             echo "${item}" | awk '{print substr($0, 2, length($0) - 2)}'
         done
@@ -96,11 +96,11 @@ get_stat() {
     resource=${3}
     json=$(refresh_cache ${type})
     if [[ ${type} =~ (health|cluster) ]]; then
-        res=`jq -r ".${name}" ${json}`
+        res=`jq -r ".${name}" ${json} 2>/dev/null`
     elif [[ ${type} == 'indices' && ${name} == '_all' ]]; then
-        res=`jq -r ".\"${name}\".${resource}" ${json}`
+        res=`jq -r ".\"${name}\".${resource}" ${json} 2>/dev/null`
     else
-        res=`jq -r ".${type}.\"${name}\".${resource}" ${json}`
+        res=`jq -r ".${type}.\"${name}\".${resource}" ${json} 2>/dev/null`
     fi
     echo ${res}
 }
