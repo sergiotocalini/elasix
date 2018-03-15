@@ -67,7 +67,7 @@ refresh_cache() {
 	elif [[ ${type} == 'indices' ]]; then
 	    RESOURCE="_stats"
 	fi
-	curl -s "${ELASTIC_URL}/${RESOURCE}" 2>/dev/null | jq '.' > ${file}
+	curl -s "${ELASTIC_URL}/${RESOURCE}" 2>/dev/null | jq '.' 2>/dev/null > ${file}
     fi
     echo "${file}"
 }
