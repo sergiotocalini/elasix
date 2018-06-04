@@ -66,6 +66,10 @@ refresh_cache() {
 	    RESOURCE="_cluster/health"
 	elif [[ ${type} == 'indices' ]]; then
 	    RESOURCE="_stats"
+	elif [[ ${type} == 'root' ]]; then
+	    RESOURCE=""
+	else
+	    return 1
 	fi
 	curl -s "${ELASTIC_URL}/${RESOURCE}" 2>/dev/null | jq '.' 2>/dev/null > ${file}
     fi
