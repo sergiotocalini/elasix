@@ -167,7 +167,7 @@ else
         rval=$(discovery ${ARGS[*]})
         rcode="${?}"
     fi
-    echo ${rval:-0} | sed "s/null/0/g"
+    echo "${rval:-0}" | sed "s/null/0/g"
 fi
 
 exit ${rcode}
