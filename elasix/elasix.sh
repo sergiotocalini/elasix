@@ -99,7 +99,7 @@ get_stat() {
     name=${2}
     resource=${3}
     json=$(refresh_cache ${type})
-    if [[ ${type} =~ (health|cluster) ]]; then
+    if [[ ${type} =~ (health|cluster|root) ]]; then
         res=`jq -r ".${name}" ${json} 2>/dev/null`
     elif [[ ${type} == 'indices' && ${name} == '_all' ]]; then
         res=`jq -r ".\"${name}\".${resource}" ${json} 2>/dev/null`
