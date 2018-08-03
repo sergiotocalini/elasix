@@ -3,8 +3,8 @@ SOURCE_DIR=$(dirname $0)
 ZABBIX_DIR=/etc/zabbix
 
 ELASTIC_URL=${1:-'http://localhost:9022'}
-ELASTIC_USER=${4:-monitor}
-ELASTIC_PASS=${5:-m0n1t0r}
+ELASTIC_USER=${2:-monitor}
+ELASTIC_PASS=${3:-m0n1t0r}
 
 mkdir -p ${ZABBIX_DIR}/scripts/agentd/elasix
 
