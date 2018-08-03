@@ -21,6 +21,6 @@ regex_array[0]="s|ELASTIC_URL=.*|ELASTIC_URL=\"${ELASTIC_URL}\"|g"
 regex_array[1]="s|ELASTIC_USER=.*|ELASTIC_USER=\"${ELASTIC_USER}\"|g"
 regex_array[2]="s|ELASTIC_PASS=.*|ELASTIC_PASS=\"${ELASTIC_PASS}\"|g"
 for index in ${!regex_array[*]}; do
-    sed -i "${regex_array[${index}]}" ${ZABBIX_SCRIPT_CONFIG}
+    sed -i "${regex_array[${index}]}" ${SCRIPT_CONFIG}
 done
 
