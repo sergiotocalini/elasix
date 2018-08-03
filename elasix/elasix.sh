@@ -71,7 +71,12 @@ refresh_cache() {
 	else
 	    return 1
 	fi
-	curl -s "${ELASTIC_URL}/${RESOURCE}" 2>/dev/null | jq '.' 2>/dev/null > ${file}
+	if ! [[ -z ${ELASTIC_USER} && -z ${ELASTIC_PASS} ]]; then
+	    CURL_AUTH_FLAG="--user"
+	    CURL_AUTH_ATTR+="${ELASTIC_USER}:${ELASTIC_PASS}"
+	fi
+	curl -s ${CURL_AUTH_FLAG} "${CURL_AUTH_ATTR}" \
+	     "${ELASTIC_URL}/${RESOURCE}" 2>/dev/null | jq '.' 2>/dev/null > ${file}
     fi
     echo "${file}"
 }
