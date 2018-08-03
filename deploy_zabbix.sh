@@ -2,7 +2,7 @@
 SOURCE_DIR=$(dirname $0)
 ZABBIX_DIR=/etc/zabbix
 
-ELASTIC_URL =${1:-'http://localhost:9022'}
+ELASTIC_URL=${1:-'http://localhost:9022'}
 ELASTIC_USER=${4:-monitor}
 ELASTIC_PASS=${5:-m0n1t0r}
 
