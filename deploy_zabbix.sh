@@ -13,7 +13,7 @@ if [[ -f ${SCRIPT_CONFIG} ]]; then
     SCRIPT_CONFIG=${ZABBIX_DIR}/scripts/agentd/elasix/elasix.conf.new
 fi
 
-cp -rpv ${SOURCE_DIR}/elasix/elasix.conf.example ${SCRIPT_CONFIG}/scripts/agentd/elasix/elasix.conf
+cp -rpv ${SOURCE_DIR}/elasix/elasix.conf.example ${SCRIPT_CONFIG}
 cp -rpv ${SOURCE_DIR}/elasix/elasix.sh           ${ZABBIX_DIR}/scripts/agentd/elasix/
 cp -rpv ${SOURCE_DIR}/elasix/zabbix_agentd.conf  ${ZABBIX_DIR}/zabbix_agentd.d/elasix.conf
 
