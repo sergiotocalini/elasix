@@ -35,7 +35,8 @@ CACHE_TTL|<empty>
 Then you can run the deploy_zabbix script
 ```
 #~ git clone https://github.com/sergiotocalini/elasix.git
-#~ sudo ./elasix/deploy_zabbix.sh "<SPLUNK_URL>" "<SPLUNK_USER>" "<SPLUNK_PASS>" "<CACHE_DIR>" "<CACHE_TTL>"
+#~ sudo ./elasix/deploy_zabbix.sh "<ELASTIC_URL>" \
+        "<ELASTIC_USER>" "<ELASTIC_PASS>" "<CACHE_DIR>" "<CACHE_TTL>"
 #~ sudo systemctl restart zabbix-agent
 ``` 
 *Note: the installation has to be executed on the zabbix agent host and you have to import the template on the zabbix web. The default installation directory is /etc/zabbix/scripts/agentd/elasix*
